@@ -1,74 +1,69 @@
-base <https://inventaris.onroerenderfgoed.be/>
 prefix aanduidingsobjecten: <https://id.erfgoed.net/aanduidingsobjecten/>
 prefix adms: <http://www.w3.org/ns/adms#>
+prefix adres: <https://data.vlaanderen.be/ns/adres#>
 prefix cidoc-crm: <http://www.cidoc-crm.org/cidoc-crm/>
+prefix gebouw: <https://data.vlaanderen.be/ns/gebouw#>
 prefix geo: <http://www.opengis.net/ont/geosparql#>
 prefix locn: <http://www.w3.org/ns/locn#>
+prefix omgevingsvergunning: <https://data.vlaanderen.be/ns/omgevingsvergunning#>
 prefix owl: <http://www.w3.org/2002/07/owl#>
 prefix perceel: <https://data.vlaanderen.be/ns/perceel#>
 prefix prov: <http://www.w3.org/ns/prov#>
 prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix schema: <http://schema.org/>
 
-<Geraard-de-Duivelsteen>
-  # 1. OSLO Omgevingsvergunning (Applicatieprofiel)
-  # <https://data.vlaanderen.be/doc/applicatieprofiel/omgevingsvergunning/>
-  # =======================================================================
+aanduidingsobjecten:8568
+  # 1. OSLO Gebouwenregister
+  # <https://data.vlaanderen.be/doc/applicatieprofiel/gebouwenregister/>
   #
-  # Eén gebied (of meerdere gebieden) van land en/of water, of één enkel volume (of meerdere volumes) ruimte, afgebakend voor een bepaald doel.
-  # Definitie conform ISO 19152 - Land Administration Domain Model.
-  a perceel:RuimtelijkeEenheid;
-  # De identificator van de Ruimtelijke Eenheid.
-  adms:identifier "8568";
-  # Adres van de Ruimtelijke Eenheid.
-  perceel:adres <Geraard-de-Duivelsteen-adres>;
-  # Geometrie van de ruimtelijke eenheid en metadata over hoe deze werd bepaald.
-  perceel:RuimtelijkeEenheid.geometrie <Geraard-de-Duivelsteen-geometrie>;
-  # Oppervlakte van de ruimtelijke eenheid en metadata over de manier waarop deze bepaald werd.
-  perceel:RuimtelijkeEenheid.oppervlakte <Geraard-de-Duivelsteen-oppervlakte>;
+  # Een gesloten en/of overdekt, bovengronds of ondergronds bouwwerk, dat dient of bestemd is, ofwel om mensen, dieren en voorwerpen onder te brengen, ofwel om economische goederen te vervaardigen of diensten te verstrekken. Een gebouw verwijst naar gelijk welke structuur die op blijvende wijze op een terrein opgetrokken of gebouwd wordt.
+  a gebouw:Gebouw;
+  # 2D- of 2.5D-geometrische voorstelling van het gebouw.
+  gebouw:Gebouw.geometrie aanduidingsobjecten:8568-geometrie;
+  # Adresvoorstelling die bij het gebouw hoort.
+  gebouw:Gebouw.adres aanduidingsobjecten:8568-adres;
+  # De percelen waarmee het gebouw officieel geassocieerd is.
+  gebouw:ligtOp aanduidingsobjecten:8568-perceel;
 
   # 2. OSLO Cultureel Erfgoed Object (Applicatieprofiel)
   # <https://data.vlaanderen.be/doc/applicatieprofiel/cultureel-erfgoed-object/>
-  # ============================================================================
   #
   # Fysiek object ontstaan door een doelbewuste menselijke activiteit.
   a cidoc-crm:E22_Man-Made_Object; # subklasse van cidoc-crm:E1_CRM_Entity, cidoc-crm:E72_Legal_Object, cidoc-crm:E18_Physical_Thing
-  # Beschrijft de permanente locatie van het MensgemaaktObject.
-  # Dit is de plaats die normaal gereserveerd is voor het object, zoals het depot waar het wordt bewaard of het museum waar het in principe wordt tentoongesteld. Objecten worden echter soms uitgeleend aan andere instellingen of maken deel uit van een tijdelijke tentoonstelling waardoor de permanenteLocatie kan verschillen van de huidige locatie.
-  cidoc-crm:P54_has_current_permanent_location <Geraard-de-Duivelsteen-location>;
   # Titel van het MensgemaaktObject.
-  cidoc-crm:P102_has_title "Geraard de Duivelsteen"@nl-be;
+  cidoc-crm:P102_has_title "Geraard de Duivelsteen"@nl-be.
 
-  # 3. Overig
-  # =========
-  geo:hasGeometry <Geraard-de-Duivelsteen-geometry>;
-  owl:sameAs aanduidingsobjecten:8568.
+aanduidingsobjecten:8568-geometrie
+  # Geometrie van het gebouw en metadata over welk deel van het gebouw door de geometrie wordt voorgesteld en hoe deze werd bepaald.
+  a gebouw:2DGebouwgeometrie;
+  # 2D- of 2.5D-geometrische voorstelling van het gebouw.
+  gebouw:geometrie aanduidingsobjecten:8568-geometrie-geometrie.
 
-<Geraard-de-Duivelsteen-oppervlakte>
-  a perceel:RuimtelijkeEenheidOppervlakte;
-  rdf:value "1 560m²".
+# 3. Core Location Vocabulary
+# <https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.0/>
+aanduidingsobjecten:8568-geometrie-geometrie
+  # A shape or form of a Location.
+  # This class defines the notion of "geometry" at the conceptual level, and it shall be encoded by using different formats (see usage note of the locn:geometry property). Can be a point, line or polygon, expressed using coordinates in some coordinate reference system. We also refer to the Examples section of this specification for a number of different geometry examples expressed in different formats.
+  a locn:Geometry;
+  # An expression of the Geometry in WKT, the Well-Known Text markup language.
+  # Use geo:wktLiteral as type for the literal.
+  geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/31370> MultiPolygon(((105100.11990799 193713.45767992,105099.32726799 193712.40628792,105097.98096399 193714.01198392,105095.43702799 193717.04641592,105091.34000399 193721.93319992,105078.29853199 193737.48852792,105078.75721999 193741.38203192,105080.21910799 193753.78919992,105080.34160399 193754.82945592,105081.49104399 193764.58587192,105103.80502799 193761.22894392,105112.76694799 193759.23003192,105115.80816399 193758.55169592,105118.71414799 193757.90356792,105131.45168399 193755.06254392,105129.80617999 193752.68564792,105128.85053199 193751.30523192,105128.78473999 193751.04206392,105128.70793999 193750.83969592,105128.55056399 193750.55988792,105128.39542799 193750.33153592,105128.23401999 193750.15271992,105127.98800399 193749.96609592,105127.65213199 193749.82401592,105127.26198799 193749.73684792,105108.65251599 193725.25172792,105108.88061199 193725.07828792,105101.95926799 193715.89761592,105100.11990799 193713.45767992)))"^^geo:wktLiteral.
 
-# Aanduiding van een geografische positie,dmv coordinaten,een toponiem,een adreslabel,een verwijzing naar een plaats/regio of verwijzing naar een adres.
-# Te gebruiken als de manier waarop de geografische positie wordt aangeduid pas zal worden vastgelegd bij implementatie. Is deze manier nu al gekend dan moet direct gewerkt worden met Geometrie,GeografischeNaam,Adres etc. Opmerking: een beschrijving van deze mogelijkheden is te vinden in het AP OSLO-Generiek.
-# Voor dit datatype zijn geen eigenschappen gedefinieerd.
-<Geraard-de-Duivelsteen-location>
-  a prov:Location.
+# 4. OSLO Perceel
+# <https://data.vlaanderen.be/doc/applicatieprofiel/perceel/>
+aanduidingsobjecten:8568-perceel
+  # Een gedeelte van het Belgische grondgebied, geografische afgebakend en geïdentificeerd door de AAPD op het kadastraal percelenplan, dat overeenstemt met het grondoppervlak van één of meerdere kadastrale patrimoniale percelen.
+  # Kadastraal Planperceel komt overeen met de entiteit CadastralParcel uit INSPIRE Cadastral Parcel. De identificator die gedefinieerd kan worden voor een Kadastraal planperceel komt overeen met de CaPaKey (bijvoorbeeld 11111A2222/33B444).
+  a perceel:KadastraalPlanperceel.
 
-<Geraard-de-Duivelsteen-geometry>
-  a geo:Geometry;
-  geo:asWKT '<http://www.opengis.net/def/crs/EPSG/0/31370> MultiPolygon(((105100.11990799 193713.45767992,105099.32726799 193712.40628792,105097.98096399 193714.01198392,105095.43702799 193717.04641592,105091.34000399 193721.93319992,105078.29853199 193737.48852792,105078.75721999 193741.38203192,105080.21910799 193753.78919992,105080.34160399 193754.82945592,105081.49104399 193764.58587192,105103.80502799 193761.22894392,105112.76694799 193759.23003192,105115.80816399 193758.55169592,105118.71414799 193757.90356792,105131.45168399 193755.06254392,105129.80617999 193752.68564792,105128.85053199 193751.30523192,105128.78473999 193751.04206392,105128.70793999 193750.83969592,105128.55056399 193750.55988792,105128.39542799 193750.33153592,105128.23401999 193750.15271992,105127.98800399 193749.96609592,105127.65213199 193749.82401592,105127.26198799 193749.73684792,105108.65251599 193725.25172792,105108.88061199 193725.07828792,105101.95926799 193715.89761592,105100.11990799 193713.45767992)))'^^geo:wktLiteral.
-
-<Geraard-de-Duivelsteen-geometrie>
-  a perceel:RuimtelijkeEenheidGeometrie;
-  perceel:RuimtelijkeEenheidGeometrie.geometrie <Geraard-de-Duivelsteen-geometrie2>.
-
-<Geraard-de-Duivelsteen-geometrie2>
-  a locn:Geometry.
-
-<Geraard-de-Duivelsteen-adres>
+# 5. Adressenregister
+# <https://data.vlaanderen.be/doc/applicatieprofiel/adresregister/>
+aanduidingsobjecten:8568-adres
   a locn:Address;
-  # The name or names of a geographic area or locality that groups a number of addressable objects for addressing purposes, without being an administrative unit. This would typically be part of a city, a neighbourhood or village. The domain of locn:addressArea is locn:Address.
-  locn:addressArea "Gent"; # Deelgemeente Gent
+  adres:Adresvoorstelling.huisnummer "1";
+  adres:Adresvoorstelling.busnummer "9000";
+  adres:gemeentenaam "Gent";
+  adres:land "Belgie";
   # The concept of adding a globally unique identifier for each instance of an address is a crucial part of the INSPIRE data spec. The domain of locn:addressId is locn:Address.
   locn:addressId "TODO";
   # The uppermost administrative unit for the address, almost always a country. The domain of locn:adminUnitL1 is locn:Address and the range is a literal, conceptually defined by the INSPIRE Geographical Name data type.
@@ -76,10 +71,5 @@ prefix schema: <http://schema.org/>
   locn:adminUnitL1 "BE";
   # The region of the address, usually a county, state or other such area that typically encompasses several localities. The domain of  locn:adminUnitL2 is locn:Address and the range is a literal, conceptually defined by the INSPIRE Geographical Name data type.
   locn:adminUnitL2 "Oost-Vlaanderen";
-  locn:fullAddress "Geraard de Duivelstraat 1";
-  # The Post Office Box number. The domain of locn:poBox is locn:Address.
-  locn:postBox "9000";
-  # The post code (a.k.a postal code, zip code etc.). Post codes are common elements in many countries' postal address systems. The domain of locn:postCode is locn:Address.
-  locn:postCode "9000";
-  # The key postal division of the address, usually the city. (INSPIRE's definition is "One or more names created and maintained for postal purposes to identify a subdivision of addresses and postal delivery points."). The domain of locn:postName is locn:Address.
-  locn:postName "Gent". # Gemeente Gent
+  # The complete address written as a string, with or without formatting. The domain of locn:fullAddress is locn:Address.
+  locn:fullAddress "Geraard de Duivelstraat 1, 9000 Gent, België".
