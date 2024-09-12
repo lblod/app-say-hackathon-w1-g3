@@ -33,10 +33,6 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://frontend/assets/"
   end
 
-  match "/assets/*path", %{ layer: :api } do
-    Proxy.forward conn, path, "http://frontend/assets/"
-  end
-
   match "/@appuniversum/*path", %{ layer: :api } do
     Proxy.forward conn, path, "http://frontend/@appuniversum/"
   end
