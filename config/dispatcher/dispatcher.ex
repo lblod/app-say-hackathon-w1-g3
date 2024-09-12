@@ -24,6 +24,31 @@ defmodule Dispatcher do
   # Run `docker-compose restart dispatcher` after updating
   # this file.
 
+
+  ###############################################################
+  #   Mock login
+  ###############################################################
+
+  match "/mock/sessions/*path", %{ accept: [:any], layer: :api} do
+    Proxy.forward conn, path, "http://mocklogin/sessions/"
+  end
+
+  ###############################################################
+  #   LOGIN
+  ###############################################################
+
+  match "/accounts", %{ accept: [:json], layer: :api} do
+    Proxy.forward conn, [], "http://resource/accounts/"
+  end
+
+  match "/accounts/*path", %{ accept: [:json], layer: :api} do
+    Proxy.forward conn, path, "http://resource/accounts/"
+  end
+
+  match "/users/*path" do
+    Proxy.forward conn, path, "http://resource/users/"
+  end
+
   ###############################################################
   #   FRONTEND
   ###############################################################

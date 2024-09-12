@@ -1,0 +1,29 @@
+PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+PREFIX muAccount: <http://mu.semte.ch/vocabularies/account/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+
+
+<http://example.org/agent/citizen/1>
+  a foaf:Person ;
+  foaf:firstName "Citizen" ;
+  foaf:lastName "Kane" ;
+  foaf:member <http://example.org/agent/admin-unit/public> ;
+  mu:uuid "9a8afa68-8010-4fd3-ae3e-a3cb12fb5fc1" ;
+  foaf:account <http://example.org/agent/account/1> .
+
+<http://example.org/agent/account/1>
+  a foaf:OnlineAccount ;
+  mu:uuid "9a8afa68-8010-4fd3-ae3e-a3cb12fb5fa1" ;
+  foaf:member <http://example.org/agent/citizen/1> ;
+  foaf:accountServiceHomepage <https://github.com/lblod/mock-login-service>;
+  ext:sessionRole "citizen".
+
+<http://example.org/agent/admin-unit/public>
+  a besluit:Bestuurseenheid ;
+  mu:uuid "9a8afa68-8010-4fd3-ae3e-a3cb12fb5be1" ;
+  skos:prefLabel "City of Public" ;
+  dcterms:identifier "public".
