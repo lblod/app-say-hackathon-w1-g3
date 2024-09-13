@@ -74,6 +74,13 @@ defmodule Dispatcher do
     Proxy.forward(conn, path, "http://resource/requests")
   end
 
+  ###############################################################
+  # /fetch-decision-info/'
+  ###############################################################
+
+  match "/fetch-decision-info/*path", %{ accept: [:any], layer: :api } do
+    Proxy.forward(conn, path, "http://hacky-backend/fetch-decision-info")
+  end
 
   ###############################################################
   #   FRONTEND

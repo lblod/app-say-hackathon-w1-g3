@@ -1,4 +1,4 @@
-import { app, update } from 'mu';
+import { app, update, uuid } from 'mu';
 
 app.get('/fetch-decision-info/', async function (req, res) {
   // const uri = 'https://inventaris.onroerenderfgoed.be/aanduidingsobjecten/12581';
@@ -90,7 +90,10 @@ function generateSparqlInsertQuery(ttlData) {
   content = content.replace(/"http([^"]+)"/g, '<http$1>');
 
   // Step 3: skolemize blank nodes. This is a mess.
+  const skolemizedContent = skolemizeBlankNodes(content);
+  content = skolemizedContent;
   // Looking for a lib,
+
 
   // Step 4: Construct the SPARQL query
   const sparqlQuery = `${prefixes}
@@ -101,6 +104,20 @@ ${content.trim()}
 }`;
 
   return sparqlQuery;
+}
+
+function skolemizeBlankNodes(ttlData) {
+  const blankNodeRegex = /\[\s*([^\[\]]*?)\s*\]/g;
+  let skolemizedContent = ttlData;
+
+  let match;
+  while ((match = blankNodeRegex.exec(ttlData)) !== null) {
+    const blankNode = match[0];
+    const skolemizedUri = `http://example.com/.well-known/erfgoed-besluit/${uuid()}`;
+    skolemizedContent = skolemizedContent.replace(blankNode, `<${skolemizedUri}>`);
+  }
+
+  return skolemizedContent;
 }
 
 
