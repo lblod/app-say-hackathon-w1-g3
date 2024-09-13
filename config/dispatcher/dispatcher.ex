@@ -25,6 +25,7 @@ defmodule Dispatcher do
   # Run `docker-compose restart dispatcher` after updating
   # this file.
 
+
   match "/addresses/*path", %{ accept: [:json], layer: :api } do
     Proxy.forward(conn, path, "http://resource/addresses")
   end
@@ -37,6 +38,11 @@ defmodule Dispatcher do
 
   match "/concepts/*path", %{ accept: [:json], layer: :api } do
     Proxy.forward(conn, path, "http://resource/concepts")
+  end
+
+
+  match "/content/*path", %{ accept: [:json], layer: :api } do
+    Proxy.forward(conn, path, "http://resource/content")
   end
 
 

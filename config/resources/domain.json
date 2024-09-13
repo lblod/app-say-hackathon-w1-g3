@@ -63,15 +63,15 @@
       },
       "new-resource-base": "http://data.lblod.info/id/personen/"
     },
-    "legal-events" : {
+    "legal-events": {
       "class": "omgevingsvergunning:JuridischeGebeurtenis",
       "new-resource-base": "http://data.lblod.info/id/legal-events/"
     },
     "legal-acts": {
       "class": "omgevingsvergunning:Rechtshandeling",
       "super": ["legal-events"],
-      "relationships" : {
-        "responsible" : {
+      "relationships": {
+        "responsible": {
           "predicate": "omgevingsvergunning:heeftAlsVerantwoordelijke",
           "target": "legal-subjects",
           "cardinality": "one"
@@ -79,18 +79,40 @@
       },
       "new-resource-base": "http://data.lblod.info/id/legal-acts/"
     },
-    "requests" : {
+    "requests": {
       "class": "omgevingsvergunning:Aanvraag",
       "relationships": {
         "applicant": {
           "predicate": "omgevingsvergunning:aanvrager",
           "target": "legal-subjects",
           "cardinality": "one"
+        },
+        "content": {
+          "predicate": "omgevingsvergunning:inhoud",
+          "target": "content",
+          "cardinality": "one"
         }
       },
       "new-resource-base": "http://data.lblod.info/id/vergunnings-aanvragen/"
     },
-    "human-made-objects" : {
+    "content": {
+      "class": "omgevingsvergunning:Inhoud",
+      "relationships": {
+        "request": {
+          "predicate": "dct:subject",
+          "target": "immovable-heritage",
+          "cardinality": "one"
+        }
+      },
+      "attributes": {
+        "action-requested": {
+          "type": "string",
+          "predicate": "ext:actionRequested"
+        }
+      },
+      "new-resource-base": "http://data.lblod.info/id/content/"
+    },
+    "human-made-objects": {
       "class": "cidoccrm:E22_Man-Made_Object",
       "new-resource-base": "http://data.lblod.info/id/human-made-objects/"
     },
