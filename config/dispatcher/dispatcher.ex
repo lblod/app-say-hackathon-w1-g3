@@ -12,6 +12,7 @@ defmodule Dispatcher do
   @json %{ accept: %{ json: true } }
   @html %{ accept: %{ html: true } }
 
+
   define_layers [ :api, :frontend, :not_found ]
 
   # In order to forward the 'themes' resource to the
@@ -23,6 +24,56 @@ defmodule Dispatcher do
   #
   # Run `docker-compose restart dispatcher` after updating
   # this file.
+
+  match "/addresses/*path", %{ accept: [:json], layer: :api } do
+    Proxy.forward(conn, path, "http://resource/addresses")
+  end
+
+
+  match "/agents/*path", %{ accept: [:json], layer: :api } do
+    Proxy.forward(conn, path, "http://resource/agents")
+  end
+
+
+  match "/concepts/*path", %{ accept: [:json], layer: :api } do
+    Proxy.forward(conn, path, "http://resource/concepts")
+  end
+
+
+  match "/human-made-objects/*path", %{ accept: [:json], layer: :api } do
+    Proxy.forward(conn, path, "http://resource/human-made-objects")
+  end
+
+
+  match "/immovable-heritage/*path", %{ accept: [:json], layer: :api } do
+    Proxy.forward(conn, path, "http://resource/immovable-heritage")
+  end
+
+
+  match "/legal-acts/*path", %{ accept: [:json], layer: :api } do
+    Proxy.forward(conn, path, "http://resource/legal-acts")
+  end
+
+
+  match "/legal-events/*path", %{ accept: [:json], layer: :api } do
+    Proxy.forward(conn, path, "http://resource/legal-events")
+  end
+
+
+  match "/legal-subjects/*path", %{ accept: [:json], layer: :api } do
+    Proxy.forward(conn, path, "http://resource/legal-subjects")
+  end
+
+
+  match "/people/*path", %{ accept: [:json], layer: :api } do
+    Proxy.forward(conn, path, "http://resource/people")
+  end
+
+
+  match "/requests/*path", %{ accept: [:json], layer: :api } do
+    Proxy.forward(conn, path, "http://resource/requests")
+  end
+
 
   ###############################################################
   #   FRONTEND

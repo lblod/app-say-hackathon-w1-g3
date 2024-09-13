@@ -6,7 +6,7 @@ services:
   identifier:
     image: semtech/mu-identifier:1.10.3
     environment:
-      SESSION_COOKIE_SECURE: "on"
+      SESSION_COOKIE_SECURE: 'on'
     links:
       - dispatcher:dispatcher
   dispatcher:
@@ -15,11 +15,11 @@ services:
       - resource:resource
     volumes:
       - ./config/dispatcher:/config
-  database:
+  virtuoso:
     image: redpencil/virtuoso:1.2.0-rc.1
     environment:
-      SPARQL_UPDATE: "true"
-      DEFAULT_GRAPH: "http://mu.semte.ch/application"
+      SPARQL_UPDATE: 'true'
+      DEFAULT_GRAPH: 'http://mu.semte.ch/application'
     volumes:
       - ./data/db:/data
       - ./config/virtuoso/virtuoso.ini:/data/virtuoso.ini
@@ -30,6 +30,12 @@ services:
   resource:
     image: semtech/mu-cl-resources:1.23.0
     links:
-      - database:database
+      - virtuoso:database
     volumes:
       - ./config/resources:/config
+  migrations:
+    image: semtech/mu-migrations-service:0.9.0
+    links:
+      - virtuoso:database
+    volumes:
+      - ./config/migrations:/data/migrations
