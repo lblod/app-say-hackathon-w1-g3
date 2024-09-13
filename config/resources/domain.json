@@ -83,7 +83,7 @@
       "class": "omgevingsvergunning:Aanvraag",
       "relationships": {
         "applicant": {
-          "predicate": "omgevingsvergunning:anvrager",
+          "predicate": "omgevingsvergunning:aanvrager",
           "target": "legal-subjects",
           "cardinality": "one"
         }
