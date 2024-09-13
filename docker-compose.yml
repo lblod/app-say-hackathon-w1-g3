@@ -35,3 +35,13 @@ services:
       - virtuoso:database
     volumes:
       - ./config/migrations:/data/migrations
+  hacky-backend:
+    image: semtech/mu-javascript-template
+    links:
+      - virtuoso:database
+    environment:
+      NODE_ENV: 'development'
+    ports:
+      - 8888:80
+    volumes:
+      - ./hacky-backend/app/:/app/
