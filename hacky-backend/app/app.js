@@ -113,7 +113,7 @@ function skolemizeBlankNodes(ttlData) {
   let match;
   while ((match = blankNodeRegex.exec(ttlData)) !== null) {
     const blankNode = match[0];
-    const skolemizedUri = `http://example.com/.well-known/erfgoed-besluit/${uuid()}`;
+    const skolemizedUri = `http://example.com/.well-known/genid/erfgoed-besluit/${uuid()}`;
     skolemizedContent = skolemizedContent.replace(blankNode, `<${skolemizedUri}>`);
   }
 
